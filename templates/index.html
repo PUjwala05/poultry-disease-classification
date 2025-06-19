@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Poultry Disease Predictor 🐥</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Poultry Disease Predictor 🐥</h1>
+        <form action="/predict" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/*" required><br><br>
+            <input type="submit" value="Predict Disease" class="btn-blue">
+        </form>
+
+        {% if prediction %}
+        <div class="result">
+            <h2>Prediction: {{ prediction }}</h2>
+            <p><strong>Treatment:</strong> {{ treatment }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
