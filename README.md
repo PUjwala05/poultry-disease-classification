@@ -54,9 +54,7 @@ poultry_web_app/
 │
 └── README.md # Project documentation
 
-yaml
-Copy
-Edit
+
 
 ---
 
