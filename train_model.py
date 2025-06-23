@@ -1,72 +1,69 @@
 import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.applications import MobileNetV2
-from tensorflow.keras.models import Model
-from tensorflow.keras.layers import Dense, GlobalAveragePooling2D, Dropout
-import matplotlib.pyplot as plt
+from tensorflow.keras import layers, models
+import os
 
-# Set parameters
-IMG_SIZE = (224, 224)
-BATCH_SIZE = 32
-EPOCHS = 10
-DATASET_DIR = "poultry_diseases"
+# ✅ Define correct base directory
+base_dir = os.path.join("poultry_diseases", "data", "data")
+train_dir = os.path.join(base_dir, "train")
+val_dir = os.path.join(base_dir, "val")
 
-# Load dataset with ImageDataGenerator
-datagen = ImageDataGenerator(
-    rescale=1./255,
-    validation_split=0.2,
-    rotation_range=20,
-    zoom_range=0.2,
-    shear_range=0.1,
-    horizontal_flip=True
+# 📏 Image parameters
+img_height, img_width = 224, 224
+batch_size = 32
+
+# 🧪 Preprocessing and augmentation
+train_datagen = ImageDataGenerator(rescale=1./255,
+                                   rotation_range=20,
+                                   zoom_range=0.2,
+                                   shear_range=0.2,
+                                   horizontal_flip=True)
+
+val_datagen = ImageDataGenerator(rescale=1./255)
+
+# 📦 Data loaders
+train_data = train_datagen.flow_from_directory(
+    train_dir,
+    target_size=(img_height, img_width),
+    batch_size=batch_size,
+    class_mode='categorical'
 )
 
-train_generator = datagen.flow_from_directory(
-    DATASET_DIR,
-    target_size=IMG_SIZE,
-    batch_size=BATCH_SIZE,
-    class_mode='categorical',
-    subset='training'
+val_data = val_datagen.flow_from_directory(
+    val_dir,
+    target_size=(img_height, img_width),
+    batch_size=batch_size,
+    class_mode='categorical'
 )
 
-val_generator = datagen.flow_from_directory(
-    DATASET_DIR,
-    target_size=IMG_SIZE,
-    batch_size=BATCH_SIZE,
-    class_mode='categorical',
-    subset='validation'
+# 📐 Load MobileNetV2 base
+base_model = MobileNetV2(input_shape=(img_height, img_width, 3),
+                         include_top=False,
+                         weights='imagenet')
+base_model.trainable = False
+
+# 🧠 Build final model
+model = models.Sequential([
+    base_model,
+    layers.GlobalAveragePooling2D(),
+    layers.Dense(128, activation='relu'),
+    layers.Dropout(0.5),
+    layers.Dense(train_data.num_classes, activation='softmax')
+])
+
+# ⚙️ Compile the model
+model.compile(optimizer='adam',
+              loss='categorical_crossentropy',
+              metrics=['accuracy'])
+
+# 🚀 Train with 1 epoch for speed
+model.fit(
+    train_data,
+    validation_data=val_data,
+    epochs=1
 )
 
-# Build transfer learning model using MobileNetV2
-base_model = MobileNetV2(input_shape=(224, 224, 3), include_top=False, weights='imagenet')
-base_model.trainable = False  # Freeze pretrained layers
-
-x = base_model.output
-x = GlobalAveragePooling2D()(x)
-x = Dropout(0.3)(x)
-predictions = Dense(4, activation='softmax')(x)
-
-model = Model(inputs=base_model.input, outputs=predictions)
-
-model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-model.summary()
-
-# Train the model
-history = model.fit(
-    train_generator,
-    epochs=EPOCHS,
-    validation_data=val_generator
-)
-
-# Save model
+# 💾 Save the trained model
 model.save("poultry_disease_model.h5")
-print("Model saved as poultry_disease_model.h5")
-
-# Plot training results
-plt.plot(history.history['accuracy'], label='Train Accuracy')
-plt.plot(history.history['val_accuracy'], label='Validation Accuracy')
-plt.title('Model Accuracy')
-plt.xlabel('Epoch')
-plt.ylabel('Accuracy')
-plt.legend()
-plt.show()
+print("✅ Model training complete and saved as 'poultry_disease_model.h5'")

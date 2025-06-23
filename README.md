@@ -1,121 +1,90 @@
-# Poultry Disease Classification 
+# 🐔 Poultry Disease Classification Web App
 
-# 🐔 Poultry Disease Classification - ML Flask App
-
-This project uses **Transfer Learning** with a deep learning model to classify poultry diseases from images. It provides treatment suggestions through a user-friendly web interface built using **Flask**.
+A deep learning-based web application to classify poultry diseases using images and provide treatment suggestions.
 
 ---
 
-## 🚀 Features
+## 📌 Project Overview
 
-- 🖼️ Upload poultry images for disease prediction.
-- 📊 Supports 4 classes:
-  - Coccidiosis
-  - Newcastle
-  - Salmonella
-  - Healthy
-- 💊 Suggests treatment for detected diseases.
-- 🌐 Web UI using Flask + HTML + CSS.
+This project uses a **Convolutional Neural Network (MobileNetV2)** to classify poultry diseases into the following categories:
 
----
+- **Coccidiosis**
+- **Newcastle**
+- **Salmonella**
+- **Healthy**
 
-## 🛠️ Tech Stack
-
-- Python
-- TensorFlow & Keras
-- Flask
-- HTML, CSS
-- PIL (Python Imaging Library)
-- NumPy
+It provides disease prediction from uploaded images and suggests corresponding treatment steps.
 
 ---
 
-## 📁 Folder Structure
+## 🗂️ Project Structure
 
 poultry_web_app/
-│
-├── app.py # Flask web app
+├── app.py # Flask web application
 ├── train_model.py # Model training script
-├── poultry_disease_model.h5 # Trained CNN model
-│
+├── poultry_disease_model.h5 # Trained model file
+├── trim_dataset.py # (Optional) Reduce dataset size
 ├── templates/
-│ └── index.html # HTML template
-│
+│ └── index.html # Frontend HTML file
 ├── static/
-│ ├── css/
-│ │ └── style.css # CSS styling
-│ └── bg.jpg # Background image
-│
-├── poultry_diseases/ # Training dataset (local use only)
-│ ├── Coccidiosis/
-│ ├── Healthy/
-│ ├── Newcastle/
-│ └── Salmonella/
-│
-└── README.md # Project documentation
+│ └── style.css # CSS for styling
+├── data/
+│ └── data/
+│ ├── train/ # Training images (4 folders)
+│ ├── val/ # Validation images
+│ └── test/ # Testing images
 
 
+## ⚙️ Setup Instructions
 
----
-
-## 📦 Installation & Setup
-
-### 1️⃣ Clone the repository:
+### 1. 🔧 Install Dependencies
 
 ```bash
-git clone https://github.com/PUjwala05/poultry-disease-classification.git
-cd poultry_web_app
-2️⃣ (Optional) Create a virtual environment:
-bash
-Copy
-Edit
-python -m venv venv
-venv\Scripts\activate   # On Windows
-# OR
-source venv/bin/activate  # On macOS/Linux
-3️⃣ Install dependencies:
-bash
-Copy
-Edit
 pip install tensorflow flask pillow numpy
-4️⃣ Train the model (only if you don’t have the .h5 file):
+2. 🧠 Train the Model
 bash
-Copy
-Edit
 python train_model.py
-5️⃣ Run the web application:
+This generates poultry_disease_model.h5.
+
+3. ✂️ Trim Dataset (Optional)
+To reduce the training size for faster testing:
+
 bash
-Copy
-Edit
+python trim_dataset.py
+Keeps 300 images per class in each folder.
+
+4. 🚀 Run the Web Application
+bash
 python app.py
-Then open your browser and visit:
-📍 http://127.0.0.1:5000/
+Visit: http://127.0.0.1:5000 in your browser.
 
-🧠 How It Works
-A CNN model trained on images of infected and healthy poultry.
-
-Flask handles image uploads and serves predictions.
-
-Preprocessing resizes the image to 224x224 and normalizes it.
-
-The model predicts the class and displays treatment info on the same page.
-
-💊 Treatment Mapping
-Disease	Suggested Treatment
-Coccidiosis	Give Amprolium in water for 3–5 days.
-Newcastle	Isolate birds and apply ND vaccine immediately.
-Salmonella	Use antibiotics like Enrofloxacin and sanitize the environment.
-Healthy	No disease detected. Maintain hygiene.
+🖼️ Image Classification & Treatment
+The app allows users to upload a poultry image and get a prediction. Each prediction is accompanied by treatment suggestions:
+[App Preview]static/Screenshot1 2025-06-23 163137.PNG
+[after uploading photo]static/Screenshot 2025-06-23 162507.png
 
 
-🙋‍♀️ Author
+🐓 Disease	💊 Treatment Suggestion
+Coccidiosis	Use anticoccidial drugs (e.g., amprolium). Keep litter dry and clean.
+Newcastle	Isolate infected birds. Vaccinate healthy ones. Disinfect surroundings.
+Salmonella	Administer antibiotics (e.g., enrofloxacin) under vet supervision.
+Healthy	No treatment needed. Keep monitoring. ✅
+
+🎨 UI Features
+Centered prediction box
+
+Blue-themed upload and submit buttons
+
+Background image for a clean, appealing interface
+
+Responsive and minimal layout
+
+🧑‍💻 Author
 Ujwala Perugu
-📘 Project Title: Transfer Learning-Based Classification of Poultry Diseases for Enhanced Health Management
 
 📌 Notes
+Trained on MobileNetV2 using image size 224x224.
 
-All predictions are based on model performance; use results responsibly.
+You can improve model accuracy by training with the full dataset.
 
-📎 License
-This project is for academic and educational purposes.
-
+Dataset Source: https://www.kaggle.com/datasets/chandrashekarnatesh/poultry-diseases

@@ -1,72 +1,58 @@
-from flask import Flask, request, render_template
+from flask import Flask, render_template, request
 import tensorflow as tf
-from PIL import Image
 import numpy as np
+from PIL import Image
+import os
 
 app = Flask(__name__)
 
-# Load trained model
+# Load the trained model
 model = tf.keras.models.load_model("poultry_disease_model.h5")
 
-# Make sure these match the class_indices order used during training
-classes = ['Coccidiosis', 'Healthy', 'Newcastle', 'Salmonella']
+# Class labels (same order as model training)
+class_labels = ['Coccidiosis', 'Healthy', 'Newcastle', 'Salmonella']
 
-# Suggested treatments
-treatments = {
-    "Coccidiosis": "Give Amprolium in water for 3–5 days.",
-    "Healthy": "No disease detected. Maintain hygiene.",
-    "Newcastle": "Isolate birds and apply ND vaccine immediately.",
-    "Salmonella": "Use antibiotics like Enrofloxacin and sanitize environment."
+# Treatment advice
+treatment_advice = {
+    'Coccidiosis': "Treat with anticoccidial drugs (e.g., amprolium). Maintain dry litter and proper sanitation.",
+    'Healthy': "No disease detected. Keep monitoring regularly.",
+    'Newcastle': "Vaccinate healthy birds. Isolate infected birds. Disinfect the environment thoroughly.",
+    'Salmonella': "Use antibiotics like enrofloxacin (under vet supervision). Ensure clean feed and water supply."
 }
 
-# Preprocessing function
-def preprocess_image(image):
-    image = image.resize((224, 224))
-    image = np.array(image) / 255.0
-    image = np.expand_dims(image, axis=0)
-    return image
+# Image settings
+img_height, img_width = 224, 224
 
-# Home page
-@app.route('/')
+@app.route("/")
 def home():
     return render_template("index.html")
 
-# Prediction route
-@app.route('/predict', methods=['POST'])
+@app.route("/predict", methods=["POST"])
 def predict():
     if 'file' not in request.files:
-        return render_template("index.html", prediction="No file uploaded.", treatment="")
+        return render_template("index.html", disease="❌ No file uploaded.", treatment="")
 
     file = request.files['file']
     if file.filename == '':
-        return render_template("index.html", prediction="No file selected.", treatment="")
+        return render_template("index.html", disease="❌ No file selected.", treatment="")
 
     try:
-        img = Image.open(file.stream).convert('RGB')
-        processed_img = preprocess_image(img)
+        image = Image.open(file).convert("RGB")
+        image = image.resize((img_width, img_height))
+        image_array = np.array(image) / 255.0
+        image_array = np.expand_dims(image_array, axis=0)
 
-        prediction = model.predict(processed_img)
-        predicted_index = np.argmax(prediction)
-        predicted_class = classes[predicted_index]
-        confidence = round(np.max(prediction) * 100, 2)
+        predictions = model.predict(image_array)
+        predicted_class = class_labels[np.argmax(predictions)]
+        confidence = round(100 * np.max(predictions), 2)
+        treatment = treatment_advice.get(predicted_class, "No treatment advice available.")
 
-        # Get treatment
-        treatment = treatments.get(predicted_class, "No treatment needed.")
+        disease_result = f"{predicted_class} ({confidence}%)"
 
-        # Print for debugging
-        print("Prediction:", prediction)
-        print("Class:", predicted_class)
-        print("Confidence:", confidence)
-
-        return render_template(
-            "index.html",
-            prediction=f"{predicted_class} ({confidence}%)",
-            treatment=treatment
-        )
+        return render_template("index.html", disease=disease_result, treatment=treatment)
 
     except Exception as e:
-        return render_template("index.html", prediction="Error: " + str(e), treatment="")
+        return render_template("index.html", disease="⚠ Error processing image.", treatment=str(e))
 
-# Run the app
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)

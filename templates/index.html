@@ -12,11 +12,11 @@
             <input type="submit" value="Predict Disease" class="btn-blue">
         </form>
 
-        {% if prediction %}
-        <div class="result">
-            <h2>Prediction: {{ prediction }}</h2>
-            <p><strong>Treatment:</strong> {{ treatment }}</p>
-        </div>
+         {% if disease %}
+            <div class="result">
+                <p><strong>Disease:</strong> {{ disease }}</p>
+                <p><strong>Treatment:</strong> {{ treatment }}</p>
+            </div>
         {% endif %}
     </div>
 </body>
