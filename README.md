@@ -84,10 +84,10 @@ Healthy	No treatment needed. Keep monitoring. ✅
 ## 🔍 App Screenshots
 
 ### 📸 Screenshot 1:
-![App Screenshot 1](static/Screenshot1%202025-06-23%20162507.png)
+![App Screenshot 1](static/app_screenshot1.PNG)
 
 ### 📸 Screenshot 2:
-![App Screenshot 2](static/Screenshot1%202025-06-23%20163137.png)
+![App Screenshot 2](static/app_screenshot2.png)
 
 
 🧪 Model Used
