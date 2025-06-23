@@ -72,9 +72,18 @@ python trim_dataset.py
 python app.py
 Visit: http://127.0.0.1:5000
 
-App Image
-c:\Users\ujwal\OneDrive\Desktop\poultry_web_app\static\Screenshot1 2025-06-23 163137.PNG
-c:\Users\ujwal\OneDrive\Desktop\poultry_web_app\static\Screenshot 2025-06-23 162507.png
+🖼️ Image Classification & Treatment
+The app allows users to upload a poultry image and get a prediction. Each prediction is accompanied by treatment suggestions:
+
+🐓 Disease	💊 Treatment Suggestion
+Coccidiosis	Use anticoccidial drugs (e.g., amprolium). Keep litter dry and clean.
+Newcastle	Isolate infected birds. Vaccinate healthy ones. Disinfect surroundings.
+Salmonella	Administer antibiotics (e.g., enrofloxacin) under vet supervision.
+Healthy	No treatment needed. Keep monitoring. ✅
+
+📷 App screenshot
+![choose file](c:\Users\ujwal\OneDrive\Desktop\poultry_web_app\static\Screenshot1 2025-06-23 163137.PNG)
+![disease and treatment](c:\Users\ujwal\OneDrive\Desktop\poultry_web_app\static\Screenshot 2025-06-23 162507.png)
 
 
 🧪 Model Used
