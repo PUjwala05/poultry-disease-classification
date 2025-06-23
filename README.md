@@ -81,9 +81,13 @@ Newcastle	Isolate infected birds. Vaccinate healthy ones. Disinfect surroundings
 Salmonella	Administer antibiotics (e.g., enrofloxacin) under vet supervision.
 Healthy	No treatment needed. Keep monitoring. ✅
 
-📷 App screenshot
-![App Screenshot](static/app_screenshot1.png)
-![App Screenshot](static/app_screenshot.png)
+## 🔍 App Screenshots
+
+### 📸 Screenshot 1:
+![App Screenshot 1](static/Screenshot1%202025-06-23%20162507.png)
+
+### 📸 Screenshot 2:
+![App Screenshot 2](static/Screenshot1%202025-06-23%20163137.png)
 
 
 🧪 Model Used
