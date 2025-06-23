@@ -82,8 +82,8 @@ Salmonella	Administer antibiotics (e.g., enrofloxacin) under vet supervision.
 Healthy	No treatment needed. Keep monitoring. ✅
 
 📷 App screenshot
-![choose file](c:\Users\ujwal\OneDrive\Desktop\poultry_web_app\static\Screenshot1 2025-06-23 163137.PNG)
-![disease and treatment](c:\Users\ujwal\OneDrive\Desktop\poultry_web_app\static\Screenshot 2025-06-23 162507.png)
+![App Screenshot](static/app_screenshot1.png)
+![App Screenshot](static/app_screenshot.png)
 
 
 🧪 Model Used
