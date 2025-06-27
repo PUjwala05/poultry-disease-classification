@@ -1,6 +1,8 @@
 # 🐔 Poultry Disease Classification Web App
 
 This is a deep learning-based web application for **detecting poultry diseases** from images using a Convolutional Neural Network (MobileNetV2). It classifies images into four categories: **Coccidiosis, Healthy, Newcastle, and Salmonella**, and provides treatment suggestions.
+
+
 Demonstration video link
 https://drive.google.com/file/d/1445TeZKT_b6-TRKiWOou9YcS9MJYMbz_/view?usp=sharing
 
