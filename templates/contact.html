@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Contact - PoultryDetect</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #ffffff;
+      min-height: 100vh;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 40px;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .navbar-left {
+      font-size: 1.8em;
+      font-weight: bold;
+      color: #4CAF50;
+    }
+
+    .navbar-center a {
+      margin: 0 15px;
+      color: #f0f0f0;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s, transform 0.3s;
+    }
+
+    .navbar-center a:hover {
+      color: #4CAF50;
+      transform: translateY(-2px);
+    }
+
+    .content {
+      padding: 120px 20px 60px 20px;
+      max-width: 800px;
+      margin: auto;
+      text-align: center;
+      animation: fadeIn 1s ease;
+    }
+
+    h1 {
+      font-size: 2.8em;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.15em;
+      line-height: 1.6;
+      margin-bottom: 40px;
+      color: #ddd;
+    }
+
+    form {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(8px);
+      transition: transform 0.3s;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      background-color: #ffffff10;
+      color: white;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      background-color: #ffffff20;
+      transform: scale(1.02);
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      font-size: 1.1em;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+      transform: translateY(-2px);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 14px 20px;
+      }
+
+      .navbar-center {
+        margin-top: 10px;
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      .navbar-center a {
+        margin: 5px 10px;
+      }
+
+      h1 {
+        font-size: 2em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="navbar-left">🐔 PoultryDetect</div>
+    <div class="navbar-center">
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/contact">Contact</a>
+      <a href="/predict_page">Predict</a>
+    </div>
+  </div>
+
+  <!-- Page Content -->
+  <div class="content">
+    <h1>Contact Us</h1>
+    <p>
+      If you have any questions, suggestions, or would like to get involved with our Poultry Disease Detection project,
+      please reach out using the form below.
+    </p>
+
+    <form>
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea placeholder="Your Message" rows="5" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+
+</body>
+</html>
